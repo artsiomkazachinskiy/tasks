@@ -1,17 +1,47 @@
-I been movin' calm, don't start no trouble with me
-Tryna keep it peaceful is a struggle for me
-Don't pull up at 6 AM to cuddle with me
-You know how I like it when you lovin' on me
-I don't wanna die for them to miss me
-Yes I see the things that they wishin' on me
-Hope I got some brothers that outlive me
-They gon' tell the story, shit was different with me
 
-God's plan, God's plan
-I hold back, sometimes I won't, yuh
-I feel good, sometimes I don't, ay, don't
-I finessed down Weston Road, ay, 'nessed
-Might go down a G.O.D., yeah, wait
-I go hard on Southside G, yuh, Way
-I make sure that north side eat
-And still
+[build 6/6] RUN npm run build:
+0.317 
+0.317 > atlantis-typescript@0.0.0 build
+0.317 > tsc -b && vite build
+0.317 
+6.493 src/components/form/Form.tsx(57,44): error TS2339: Property 'data' does not exist on type '{}'.
+6.494 src/components/sideBar/SideBar.tsx(1,9): error TS6133: 'Divider' is declared but its value is never read.
+6.495 src/components/sideBar/SideBar.tsx(7,1): error TS6133: 'React' is declared but its value is never read.
+6.495 src/features/clients/components/ClientDeleteModal.tsx(16,37): error TS7031: Binding element 'onConfirm' implicitly has an 'any' type.
+6.495 src/features/clients/components/ClientDeleteModal.tsx(16,48): error TS7031: Binding element 'onCancel' implicitly has an 'any' type.
+6.495 src/features/clients/components/ClientsForm.tsx(5,1): error TS6133: 'dayjs' is declared but its value is never read.
+6.495 src/features/clients/components/ClientsForm.tsx(74,33): error TS7006: Parameter 'values' implicitly has an 'any' type.
+6.497 src/features/clients/components/ClientsForm.tsx(74,41): error TS7031: Binding element 'resetForm' implicitly has an 'any' type.
+6.497 src/features/clients/components/ClientsForm.tsx(92,36): error TS2339: Property 'data' does not exist on type '{}'.
+6.498 src/features/clients/tables/clientsColumns.ts(3,47): error TS2304: Cannot find name 'rows'.
+6.498 src/layouts/Clients.tsx(1,22): error TS6133: 'Divider' is declared but its value is never read.
+6.498 src/layouts/Clients.tsx(1,43): error TS6133: 'List' is declared but its value is never read.
+6.498 src/layouts/Clients.tsx(1,49): error TS6133: 'ListItem' is declared but its value is never read.
+6.498 src/layouts/Clients.tsx(1,59): error TS6133: 'ListItemIcon' is declared but its value is never read.
+6.498 src/layouts/Clients.tsx(1,80): error TS6133: 'Typography' is declared but its value is never read.
+6.498 src/layouts/Clients.tsx(13,1): error TS6133: 'Checkbox' is declared but its value is never read.
+6.498 src/layouts/Clients.tsx(14,1): error TS6133: 'WarningSpan' is declared but its value is never read.
+6.498 src/layouts/Clients.tsx(15,1): error TS6133: 'CircleIcon' is declared but its value is never read.
+6.498 src/layouts/Clients.tsx(17,1): error TS6133: 'IClientGet' is declared but its value is never read.
+6.498 src/layouts/Clients.tsx(43,35): error TS7006: Parameter 'params' implicitly has an 'any' type.
+6.498 src/layouts/Clients.tsx(55,13): error TS2304: Cannot find name 'setIsAbleToDelete'.
+6.498 src/layouts/Clients.tsx(64,33): error TS7006: Parameter 'e' implicitly has an 'any' type.
+6.498 src/layouts/Clients.tsx(76,33): error TS7006: Parameter 'params' implicitly has an 'any' type.
+6.498 src/layouts/Clients.tsx(89,9): error TS2304: Cannot find name 'setIsAbleToDelete'.
+6.498 src/layouts/Clients.tsx(123,29): error TS2322: Type 'GridRowId' is not assignable to type 'number'.
+6.498   Type 'string' is not assignable to type 'number'.
+6.500 src/layouts/HomeLayout.tsx(5,9): error TS6133: 'Navigate' is declared but its value is never read.
+6.500 src/layouts/HomeLayout.tsx(20,11): error TS6198: All destructured elements are unused.
+6.500 src/pages/home.tsx(20,110): error TS2339: Property 'data' does not exist on type 'FetchBaseQueryError | SerializedError'.
+6.500   Property 'data' does not exist on type 'SerializedError'.
+6.500 src/store/apis/clientsApi.ts(2,35): error TS2307: Cannot find module '../../models/client.ts' or its corresponding type declarations.
+------
+Dockerfile:6
+--------------------
+   4 |     RUN npm install
+   5 |     COPY . .
+   6 | >>> RUN npm run build
+   7 |     
+   8 |     FROM nginx:alpine
+--------------------
+ERROR: failed to solve: process "/bin/sh -c npm run build" did not complete successfully: exit code: 2
