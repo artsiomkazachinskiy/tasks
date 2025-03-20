@@ -1,4 +1,11 @@
-The warming sun returns again
-And melts away the snow
-The sea is freed from icy chains
-Winter is letting go
+FROM python:3.10
+WORKDIR /app
+COPY . /app
+# RUN apt-get update && apt-get upgrade -y
+# RUN  curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/
+#get-poetry.py | python -
+#RUN bash -c "source $HOME/.poetry/env"
+RUN pip install poetry
+RUN poetry install --no-root
+RUN poetry run alembic upgrade head
+CMD ["poetry", "run", "uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0"]
