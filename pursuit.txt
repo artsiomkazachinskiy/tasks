@@ -54,3 +54,11 @@ ERROR: for postgres  Cannot create container for service db: Conflict. The conta
 
 ERROR: for db  Cannot create container for service db: Conflict. The container name "/postgres" is already in use by container "fe2a361995886fb0cab81df08dae2c80f5b519872282c0d6b2ad2e98f2faca47". You have to remove (or rename) that container to be able to reuse that name.
 ERROR: Encountered errors while bringing up the project.
+
+Local:   http://localhost:5173/
+  ➜  Network: http://172.19.0.4:5173/
+npm error path /app
+npm error command failed
+npm error signal SIGTERM
+npm error command sh -c vite --host
+npm error A complete log of this run can be found in: /root/.npm/_logs/2025-03-20T10_00_03_288Z-debug-0.log
