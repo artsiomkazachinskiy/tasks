@@ -42,3 +42,6 @@ ERROR: failed to solve: process "/bin/sh -c poetry run alembic upgrade head" did
 ERROR: Service 'backend' failed to build : Build failed
 
 ERROR: Service 'backend' failed to build : The command '/bin/sh -c poetry run alembic upgrade head' returned a non-zero code: 1
+
+The Compose file './docker-compose.yml' is invalid because:
+services.backend.depends_on contains {"db": null, "condition": "service_healthy"}, which is an invalid type, it should be a string
