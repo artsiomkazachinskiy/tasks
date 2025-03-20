@@ -45,3 +45,5 @@ ERROR: Service 'backend' failed to build : The command '/bin/sh -c poetry run al
 
 The Compose file './docker-compose.yml' is invalid because:
 services.backend.depends_on contains {"db": null, "condition": "service_healthy"}, which is an invalid type, it should be a string
+
+/bin/sh -c "sleep 10 && poetry run alembic upgrade head && poetry run uvicorn app.main:app --reload --host 0.0.0.0"
