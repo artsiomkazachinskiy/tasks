@@ -34,3 +34,7 @@ volumes:
 
 The Compose file './docker-compose.yml' is invalid because:
 services.backend.depends_on contains an invalid type, it should be an array, or an object
+
+ERROR: failed to solve: error from sender: open /home/vboxuser/atlantisapp/atlantis-fastapi/postgres_data: permission denied
+ERROR: Service 'backend' failed to build : Build failed
+
