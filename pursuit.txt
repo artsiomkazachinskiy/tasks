@@ -40,3 +40,5 @@ ERROR: Service 'backend' failed to build : Build failed
 
 ERROR: failed to solve: process "/bin/sh -c poetry run alembic upgrade head" did not complete successfully: exit code: 1
 ERROR: Service 'backend' failed to build : Build failed
+
+ERROR: Service 'backend' failed to build : The command '/bin/sh -c poetry run alembic upgrade head' returned a non-zero code: 1
