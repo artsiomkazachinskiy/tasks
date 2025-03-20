@@ -30,3 +30,7 @@ services:
 # Том для хранения данных PostgreSQL
 volumes:
   postgres_data:
+
+
+The Compose file './docker-compose.yml' is invalid because:
+services.backend.depends_on contains an invalid type, it should be an array, or an object
