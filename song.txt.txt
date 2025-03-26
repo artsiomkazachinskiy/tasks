@@ -1,3 +1,10 @@
+GPT PMBR size mismatch (16777215 != 25165823) will be corrected by write.
+The backup GPT table is not on the end of the device. This problem will be corrected by write.
+This disk is currently in use - repartitioning is probably a bad idea.
+It's recommended to umount all file systems, and swapoff all swap
+partitions on this disk.
+
+
 sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "db" to address: Temporary failure in name resolution
 
 [build 6/6] RUN npm run build:
