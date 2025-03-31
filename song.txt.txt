@@ -1,3 +1,6 @@
+
+ERROR: failed to solve: failed to compute cache key: failed to calculate checksum of ref 1facf49a-7004-4268-a80a-1adc292b6635::94oiepgi8dvdnr9inkp1elvez: "/entrypoint": not found
+
 GPT PMBR size mismatch (16777215 != 25165823) will be corrected by write.
 The backup GPT table is not on the end of the device. This problem will be corrected by write.
 This disk is currently in use - repartitioning is probably a bad idea.
