@@ -1,3 +1,6 @@
+Failed to pull image "frontend": Error response from daemon: pull access denied for frontend, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+
+
 resource "aws_launch_configuration" "ecs_lc" {
   name          = "ecs-launch-config"
   image_id      = "ami-0c55b159cbfafe1f0" # Замени на актуальный ECS-AMI
