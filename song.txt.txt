@@ -1,3 +1,5 @@
+* Deployment.apps "app-postgres" is invalid: spec.template.spec.containers[0].volumeMounts[0].name: Not found: "postgres-storage"
+
 
 * Deployment in version "v1" cannot be handled as a Deployment: json: cannot unmarshal object into Go struct field PodSpec.spec.template.spec.containers of type []v1.Container
 	* job in version "v1" cannot be handled as a Job: no kind "job" is registered for version "batch/v1" in scheme "pkg/api/legacyscheme/scheme.go:30"
