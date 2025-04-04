@@ -1,3 +1,7 @@
+Error: INSTALLATION FAILED: unable to build kubernetes objects from release manifest: resource mapping not found for name: "app-migrate" namespace: "" from "": no matches for kind "job" in version "batch/v1beta1"
+ensure CRDs are installed first
+
+
 * Deployment.apps "app-postgres" is invalid: spec.template.spec.containers[0].volumeMounts[0].name: Not found: "postgres-storage"
 
 
