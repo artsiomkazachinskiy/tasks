@@ -1,3 +1,6 @@
+* Job in version "v1" cannot be handled as a Job: json: cannot unmarshal object into Go struct field PodSpec.spec.template.spec.initContainers of type []v1.Container
+
+
 Error: INSTALLATION FAILED: unable to build kubernetes objects from release manifest: resource mapping not found for name: "app-migrate" namespace: "" from "": no matches for kind "job" in version "batch/v1beta1"
 ensure CRDs are installed first
 
