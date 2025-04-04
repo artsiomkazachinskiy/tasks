@@ -1,3 +1,5 @@
+kubectl exec -it postgres-pod -- bash -c "echo \"listen_addresses = '*'\" >> /var/lib/postgresql/data/postgresql.conf"
+
 bash -c "echo 'host all all 0.0.0.0/0 trust' >> /var/lib/postgresql/data/pg_hba.conf"
 
 telnet: can't connect to remote host (10.109.8.131): Connection refused
