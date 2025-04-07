@@ -1,3 +1,6 @@
+Unexpected error obtaining ingress-nginx pod: unable to get POD information (missing POD_NAME or POD_NAMESPACE environment variable
+
+
 No permissions to list and get Ingress Classes: ingressclasses.networking.k8s.io is forbidden: User "system:serviceaccount:ingress-nginx:nginx-ingress-serviceaccount" cannot list resource "ingressclasses" in API group "networking.k8s.io" at the cluster scope, IngressClass feature will be disabled
 
 apiVersion: v1
