@@ -1,3 +1,8 @@
+Error: INSTALLATION FAILED: 2 errors occurred:
+	* Deployment in version "v1" cannot be handled as a Deployment: json: cannot unmarshal object into Go struct field Container.spec.template.spec.containers.ports of type []v1.ContainerPort
+	* Ingress.networking.k8s.io "app-ingress-rule" is invalid: spec.rules[0].host: Invalid value: "localhost:5173": a lowercase RFC 1123 subdomain must consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character (e.g. 'example.com', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*')
+
+
 kubectl exec -it postgres-pod -- bash -c "echo \"listen_addresses = '*'\" >> /var/lib/postgresql/data/postgresql.conf"
 
 bash -c "echo 'host all all 0.0.0.0/0 trust' >> /var/lib/postgresql/data/pg_hba.conf"
