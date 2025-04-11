@@ -1,3 +1,23 @@
+ERROR [internal] load metadata for docker.io/library/build:latest                                                          0.7s
+ => CANCELED [internal] load metadata for docker.io/library/nginx:alpine                                                       0.7s
+------
+ > [internal] load metadata for docker.io/library/build:latest:
+------
+
+ 1 warning found (use docker --debug to expand):
+ - FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 1)
+Dockerfile:9
+--------------------
+   7 |     
+   8 |     FROM nginx:alpine
+   9 | >>> COPY --from=build /app/build /usr/share/nginx/html
+  10 |     EXPOSE 80
+  11 |     CMD ["nginx", "-g", "daemon off;" ]
+--------------------
+ERROR: failed to solve: build: failed to resolve source metadata for docker.io/library/build:latest: pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed (did you mean builder?)
+
+
+
 failed to solve: build: failed to resolve source metadata for docker.io/library/build:latest: pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed (did you mean builder?)
 
 
