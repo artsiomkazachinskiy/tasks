@@ -1,3 +1,6 @@
+OCI runtime exec failed: exec failed: unable to start container process: exec: "/bin/bash": stat /bin/bash: no such file or directory: unknown
+
+
 ERROR [internal] load metadata for docker.io/library/build:latest                                                          0.7s
  => CANCELED [internal] load metadata for docker.io/library/nginx:alpine                                                       0.7s
 ------
