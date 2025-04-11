@@ -1,3 +1,19 @@
+FROM python:3.10
+WORKDIR /app
+COPY pyproject.toml poetry.lock .
+# RUN apt-get update && apt-get upgrade -y
+# RUN  curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/
+#get-poetry.py | python -
+#RUN bash -c "source $HOME/.poetry/env"
+RUN pip install poetry
+RUN poetry install --no-root
+COPY . .
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
+
+
+
 Back-off restarting failed container backend in pod app-backend-85767b5f7b-rl8cr_atlantis(ebd805d1-9622-4858-a013-b36edb3cfd66)
 6
 83s
