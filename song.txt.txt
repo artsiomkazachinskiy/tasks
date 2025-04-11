@@ -1,3 +1,5 @@
+Back-off restarting failed container frontend in pod app-frontend-5795c45db8-5z9pf_atlantis(08728b66-b7b6-4c90-a214-f8aa3bef7786)
+
 WebSocket connection to 'ws://atlantis.com/?token=Nn8hhDXRC70m' failed: 
 createConnection @ client:756Understand this errorAI
 client:769 WebSocket connection to 'ws://localhost:5173/?token=Nn8hhDXRC70m' failed: 
