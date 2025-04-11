@@ -1,3 +1,5 @@
+nodes are available: persistentvolumeclaim "app-postgres-pvc" not found. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
+
 Unexpected error obtaining ingress-nginx pod: unable to get POD information (missing POD_NAME or POD_NAMESPACE environment variable
 
 
