@@ -1,3 +1,13 @@
+WebSocket connection to 'ws://atlantis.com/?token=Nn8hhDXRC70m' failed: 
+createConnection @ client:756Understand this errorAI
+client:769 WebSocket connection to 'ws://localhost:5173/?token=Nn8hhDXRC70m' failed: 
+createConnection @ client:769Understand this errorAI
+client:784 [vite] failed to connect to websocket.
+your current setup:
+  (browser) atlantis.com/ <--[HTTP]--> localhost:5173/ (server)
+  (browser) atlantis.com:/ <--[WebSocket (failing)]--> localhost:5173/ (server)
+Check out your Vite / network configuration and 
+
 minikube tunnel
 helm upgrade -f values.yaml ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx
 
