@@ -1,3 +1,10 @@
+  File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/impl.py", line 308, in _do_get
+    return self._create_connection()
+  File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 390, in _create_connection
+    return _ConnectionRecord(self)
+  File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 674, in __init__
+    self.__connect()
+
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package.json package-lock.json ./
