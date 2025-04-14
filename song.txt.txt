@@ -1,4 +1,22 @@
-  File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/impl.py", line 308, in _do_get
+# curl -v http://app-backend:8000
+* Host app-backend:8000 was resolved.
+* IPv6: (none)
+* IPv4: 10.107.183.231
+*   Trying 10.107.183.231:8000...
+* Connected to app-backend (10.107.183.231) port 8000
+> GET / HTTP/1.1
+> Host: app-backend:8000
+> User-Agent: curl/8.5.0
+> Accept: */*
+> 
+< HTTP/1.1 404 Not Found
+< date: Mon, 14 Apr 2025 14:20:05 GMT
+< server: uvicorn
+< content-length: 22
+< content-type: application/js
+
+
+File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/impl.py", line 308, in _do_get
     return self._create_connection()
   File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 390, in _create_connection
     return _ConnectionRecord(self)
