@@ -1,3 +1,20 @@
+Traceback (most recent call last):
+  File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 146, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 3298, in raw_connection
+    return self.pool.connect()
+  File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 1263, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 712, in checkout
+    rec = pool._do_get()
+  File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/impl.py", line 308, in _do_get
+    return self._create_connection()
+  File "/root/.cache/pypoetry/virtualenvs/atlantis-fastapi-cCrPfAjT-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 390, in _create_connection
+    return _ConnectionRecord(self)
+
+
 # curl -v http://app-backend:8000
 * Host app-backend:8000 was resolved.
 * IPv6: (none)
