@@ -1,3 +1,10 @@
+Error: creating RDS DB Instance (terraform-20250416155251204200000002): operation error RDS: CreateDBInstance, https response error StatusCode: 400, RequestID: c56f1d9d-d2f3-4437-a775-933cb046c68a, api error InvalidParameterValue: Invalid DB engine
+│ 
+│   with module.newversatl.aws_db_instance.test_db,
+│   on ../modules/newversatl/main.tf line 121, in resource "aws_db_instance" "test_db":
+│  121: resource "aws_db_instance" "test_db" {
+
+
 Error: creating EC2 Launch Template (test-launch-template): operation error EC2: CreateLaunchTemplate, https response error StatusCode: 400, RequestID: 931fd454-9e50-41f6-9263-eb14a9dee523, api error InvalidUserData.Malformed: Invalid BASE64 encoding of user data.
 │ 
 │   with module.ecs_cluster.aws_launch_template.ecs_lt,
