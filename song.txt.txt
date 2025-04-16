@@ -1,3 +1,11 @@
+Error: creating ECS Task Definition (example-task): operation error ECS: RegisterTaskDefinition, https response error StatusCode: 400, RequestID: 573ee6be-6b1b-4bea-a4a2-09993d0eac27, ClientException: Invalid setting for container 'run-migrations'. At least one of 'memory' or 'memoryReservation' must be specified.
+│ 
+│   with module.ecs_cluster.aws_ecs_task_definition.ecs_task,
+│   on ../modules/ecs_service_atl/main.tf line 31, in resource "aws_ecs_task_definition" "ecs_task":
+│   31: resource "aws_ecs_task_definition" "ecs_task" {
+│ 
+
+
 Error: creating RDS DB Instance (terraform-20250416155251204200000002): operation error RDS: CreateDBInstance, https response error StatusCode: 400, RequestID: c56f1d9d-d2f3-4437-a775-933cb046c68a, api error InvalidParameterValue: Invalid DB engine
 │ 
 │   with module.newversatl.aws_db_instance.test_db,
