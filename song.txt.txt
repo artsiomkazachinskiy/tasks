@@ -1,3 +1,26 @@
+Error: creating EC2 Launch Template (test-launch-template): operation error EC2: CreateLaunchTemplate, https response error StatusCode: 400, RequestID: 931fd454-9e50-41f6-9263-eb14a9dee523, api error InvalidUserData.Malformed: Invalid BASE64 encoding of user data.
+│ 
+│   with module.ecs_cluster.aws_launch_template.ecs_lt,
+│   on ../modules/ecs_service_atl/main.tf line 5, in resource "aws_launch_template" "ecs_lt":
+│    5: resource "aws_launch_template" "ecs_lt" {
+│ 
+╵
+╷
+│ Error: creating ELBv2 application Load Balancer (atllb): operation error Elastic Load Balancing v2: CreateLoadBalancer, https response error StatusCode: 400, RequestID: 77deac47-f776-473b-8c06-28b05a16514f, api error ValidationError: At least two subnets in two different Availability Zones must be specified
+│ 
+│   with module.newversatl.aws_lb.atllb["atllb"],
+│   on ../modules/newversatl/main.tf line 78, in resource "aws_lb" "atllb":
+│   78: resource "aws_lb" "atllb" {
+│ 
+╵
+╷
+│ Error: creating RDS DB Instance (terraform-20250416153917577000000001): operation error RDS: CreateDBInstance, https response error StatusCode: 400, RequestID: 47d045f8-2b82-4bf5-af06-5d97b75f64b1, InvalidSubnet: No default subnet detected in VPC. Please contact AWS Support to recreate default Subnets.
+│ 
+│   with module.newversatl.aws_db_instance.test_db,
+│   on ../modules/newversatl/main.tf line 116, in resource "aws_db_instance" "test_db":
+│  116: resource "aws_db_instance" "test_db" {
+
+
 Planning failed. Terraform encountered an error while generating this plan.
 
 ╷
