@@ -1,3 +1,9 @@
+Planning failed. Terraform encountered an error while generating this plan.
+
+╷
+│ Error: Cycle: module.newversatl.aws_security_group.this["secgrouplb"], module.newversatl.aws_security_group.this["secgroupinstance"], module.newversatl.aws_security_group.this["secgroupdb"]
+
+
 updating Security Group (sg-0b3669ea628af5c31) ingress rules: authorizing Security Group (ingress) rules: operation error EC2: AuthorizeSecurityGroupIngress, https response error StatusCode: 400, RequestID: 3b487961-a3b6-4833-86fd-d357833aa497, api error InvalidGroupId.Malformed: Invalid id: "secgrouplb" (expecting "sg-...")
 │ 
 │   with module.newversatl.aws_security_group.this["secgroupinstance"],
