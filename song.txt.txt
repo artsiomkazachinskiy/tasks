@@ -1,3 +1,26 @@
+container_definitions = jsonencode([
+    {
+      name      = "run-migrations"
+      image     = "890742572904.dkr.ecr.eu-central-1.amazonaws.com/devops-bot:latest"
+      essential = false
+      memory    = 256
+      command   = ["domigrations"]
+      environment = [{
+        name  = "POSTGRES_URL"
+        value = "${var.db_endpoint}"
+      }]
+
+      logConfiguration = {
+        logDrive = "awslogs"
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.ecs_logs.name
+          awslogs-region        = "eu-central-1"
+          awslogs-stream-prefix = "ecs"
+        }
+      }
+
+    },
+
 Error: creating ECS Task Definition (example-task): operation error ECS: RegisterTaskDefinition, 1 validation error(s) found.
 │ - missing required field, RegisterTaskDefinitionInput.ContainerDefinitions[0].LogConfiguration.LogDriver.
 │ 
