@@ -1,3 +1,12 @@
+Error: creating ECS Task Definition (example-task): operation error ECS: RegisterTaskDefinition, 1 validation error(s) found.
+│ - missing required field, RegisterTaskDefinitionInput.ContainerDefinitions[0].LogConfiguration.LogDriver.
+│ 
+│ 
+│   with module.ecs_cluster.aws_ecs_task_definition.ecs_task,
+│   on ../modules/ecs_service_atl/main.tf line 36, in resource "aws_ecs_task_definition" "ecs_task":
+│   36: resource "aws_ecs_task_definition" "ecs_task" {
+
+
 Error: creating ECS Task Definition (example-task): operation error ECS: RegisterTaskDefinition, https response error StatusCode: 400, RequestID: 573ee6be-6b1b-4bea-a4a2-09993d0eac27, ClientException: Invalid setting for container 'run-migrations'. At least one of 'memory' or 'memoryReservation' must be specified.
 │ 
 │   with module.ecs_cluster.aws_ecs_task_definition.ecs_task,
