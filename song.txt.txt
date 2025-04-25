@@ -1,3 +1,11 @@
+resource "aws_sqs_queue" "example_queue" {
+  name                      = "example-queue.fifo"  # Для FIFO очереди добавьте .fifo
+  delay_seconds             = 90                    # Задержка доставки сообщений (0-900)
+  max_message_size          = 262144                # Макс. размер сообщения (262144 байт = 256 KB)
+  message_retention_seconds = 345600                # Хранение сообщений (4 дня)
+  receive_wait_time_seconds = 10                    # Долгий опрос (0-20)
+  visibility_timeout_seconds = 30       
+
 container_definitions = jsonencode([
     {
       name      = "run-migrations"
