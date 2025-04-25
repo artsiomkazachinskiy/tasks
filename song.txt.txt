@@ -1,3 +1,24 @@
+@dp.message_handler(commands=["generate_pdf"])
+async def cmd_generate_pdf(message: types.Message):
+    # Получаем данные пользователя (можно добавить логику из Redis/БД)
+    user_id = message.from_user.id
+    text_to_pdf = "Пример текста для PDF"  # Можно брать из БД или сообщения
+
+    # Отправляем задачу в SQS
+    try:
+        sqs.send_message(
+            QueueUrl=QUEUE_URL,
+            MessageBody=json.dumps({
+                "user_id": user_id,
+                "text": text_to_pdf
+            })
+        )
+        await message.reply("✅ PDF будет сгенерирован. Используйте /showpdf, чтобы получить его.")
+    except Exception as e:
+        await message.reply("❌ Ошибка при отправке задачи. Попробуйте позже.")
+
+-----------------------------------------------------
+
 import os
 import json
 import boto3
