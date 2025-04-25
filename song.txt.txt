@@ -1,3 +1,23 @@
+import os
+import json
+import boto3
+from aiogram import Bot, Dispatcher, types
+from aiogram.contrib.middlewares.logging import LoggingMiddleware
+from aiogram.utils import executor
+
+# Настройка бота
+bot = Bot(token=os.getenv("TELEGRAM_BOT_TOKEN"))
+dp = Dispatcher(bot)
+dp.middleware.setup(LoggingMiddleware())
+
+# Настройка AWS
+sqs = boto3.client("sqs", region_name="us-east-1")
+s3 = boto3.client("s3", region_name="us-east-1")
+
+# Конфигурация AWS-ресурсов
+QUEUE_URL = "https://sqs.us-east-1.amazonaws.com/123456789012/pdf-generation-queue"  # Замените на ваш URL
+S3_BUCKET = "my-telegram-pdf-bucket"  # Замените на ваш бакет
+
 resource "aws_lambda_function" "pdf_generator" {
   function_name = "pdf-generator-lambda"
   role          = aws_iam_role.lambda_exec_role.arn
