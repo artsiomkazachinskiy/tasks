@@ -1,3 +1,33 @@
+import boto3
+from fpdf import FPDF  # pip install fpdf2
+import json
+import os
+
+s3 = boto3.client("s3")
+S3_BUCKET = os.getenv("S3_BUCKET")
+
+def generate_pdf(content, filename):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    pdf.multi_cell(0, 10, txt=content)
+    pdf.output(filename)
+    return filename
+
+def lambda_handler(event, context):
+    for record in event["Records"]:
+        body = json.loads(record["body"])
+        user_id = body["user_id"]
+        text = body["text"]
+        
+        pdf_filename = f"/tmp/{user_id}_document.pdf"
+        generate_pdf(text, pdf_filename)
+        
+        s3_key = f"pdfs/{user_id}.pdf"
+        s3.upload_file(pdf_filename, S3_BUCKET, s3_key)
+        
+    return {"statusCode": 200}
+
 resource "aws_s3_bucket" "pdf_bucket" {
   bucket = "my-telegram-pdf-bucket"  # Укажите уникальное имя
   acl    = "private"
