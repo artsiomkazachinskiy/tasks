@@ -1,3 +1,48 @@
+import boto3
+import json
+from aiogram import Bot, Dispatcher, types
+from aiogram.dispatcher import FSMContext
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.dispatcher.filters.state import State, StatesGroup
+
+# Инициализация бота и хранилища состояний
+bot = Bot(token="YOUR_TELEGRAM_BOT_TOKEN")
+storage = MemoryStorage()
+dp = Dispatcher(bot, storage=storage)
+
+# Настройка SQS
+sqs = boto3.client("sqs", region_name="us-east-1")
+QUEUE_URL = "https://sqs.us-east-1.amazonaws.com/123456789012/pdf-generation-queue"
+
+# Состояния для FSM
+class PDFStates(StatesGroup):
+    waiting_for_text = State()
+
+@dp.message_handler(commands=["generate_pdf"])
+async def cmd_generate_pdf(message: types.Message):
+    await message.reply("Пожалуйста, введите текст, который нужно преобразовать в PDF:")
+    await PDFStates.waiting_for_text.set()
+
+@dp.message_handler(state=PDFStates.waiting_for_text)
+async def process_text(message: types.Message, state: FSMContext):
+    try:
+        # Отправляем текст в SQS
+        sqs.send_message(
+            QueueUrl=QUEUE_URL,
+            MessageBody=json.dumps({
+                "user_id": message.from_user.id,
+                "text": message.text
+            })
+        )
+        await message.reply("Ваш PDF будет сгенерирован. Используйте /showpdf для получения файла.")
+    except Exception as e:
+        await message.reply(f"Произошла ошибка: {str(e)}")
+    finally:
+        await state.finish()
+
+if __name__ == "__main__":
+    executor.start_polling(dp, skip_updates=True)
+---------------------------------------------------------------
 @dp.message_handler(commands=["showpdf"])
 async def cmd_show_pdf(message: types.Message):
     s3 = boto3.client("s3")
