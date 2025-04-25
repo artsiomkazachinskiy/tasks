@@ -1,58 +1,42 @@
-@dp.message_handler(commands=["generate_pdf"])
-async def cmd_generate_pdf(message: types.Message):
-    # Получаем данные пользователя (можно добавить логику из Redis/БД)
+@dp.message_handler(commands=["showpdf"])
+async def cmd_show_pdf(message: types.Message):
+    s3 = boto3.client("s3")
     user_id = message.from_user.id
-    text_to_pdf = "Пример текста для PDF"  # Можно брать из БД или сообщения
-
-    # Отправляем задачу в SQS
+    s3_key = f"pdfs/{user_id}.pdf"
+    
     try:
-        sqs.send_message(
-            QueueUrl=QUEUE_URL,
-            MessageBody=json.dumps({
-                "user_id": user_id,
-                "text": text_to_pdf
-            })
+        # Генерируем временную ссылку на PDF
+        url = s3.generate_presigned_url(
+            "get_object",
+            Params={"Bucket": "my-telegram-pdf-bucket", "Key": s3_key},
+            ExpiresIn=3600
         )
-        await message.reply("✅ PDF будет сгенерирован. Используйте /showpdf, чтобы получить его.")
+        await message.reply(f"Ваш PDF: {url}")
     except Exception as e:
-        await message.reply("❌ Ошибка при отправке задачи. Попробуйте позже.")
+        await message.reply("PDF ещё не готов или произошла ошибка.")
 
 -----------------------------------------------------
 
-import os
-import json
 import boto3
 from aiogram import Bot, Dispatcher, types
-from aiogram.contrib.middlewares.logging import LoggingMiddleware
-from aiogram.utils import executor
 
-# Настройка бота
-bot = Bot(token=os.getenv("TELEGRAM_BOT_TOKEN"))
-dp = Dispatcher(bot)
-dp.middleware.setup(LoggingMiddleware())
-
-# Настройка AWS
+bot = Bot(token="YOUR_TELEGRAM_BOT_TOKEN")
 sqs = boto3.client("sqs", region_name="us-east-1")
-s3 = boto3.client("s3", region_name="us-east-1")
+QUEUE_URL = "https://sqs.us-east-1.amazonaws.com/123456789012/pdf-generation-queue"
 
-# Конфигурация AWS-ресурсов
-QUEUE_URL = "https://sqs.us-east-1.amazonaws.com/123456789012/pdf-generation-queue"  # Замените на ваш URL
-S3_BUCKET = "my-telegram-pdf-bucket"  # Замените на ваш бакет
+@dp.message_handler(commands=["generate_pdf"])
+async def cmd_generate_pdf(message: types.Message):
+    # Сохраняем задачу в SQS
+    sqs.send_message(
+        QueueUrl=QUEUE_URL,
+        MessageBody=json.dumps({
+            "user_id": message.from_user.id,
+            "text": "Пример текста для PDF"  # Можно брать из БД
+        })
+    )
+    await message.reply("PDF будет сгенерирован и доступен через /showpdf")
 
-resource "aws_lambda_function" "pdf_generator" {
-  function_name = "pdf-generator-lambda"
-  role          = aws_iam_role.lambda_exec_role.arn
-  runtime       = "python3.9"
-  handler       = "lambda_function.lambda_handler"
-  filename      = "lambda_function.zip"  # Архив с кодом (см. ниже)
-  timeout       = 30
-
-  environment {
-    variables = {
-      S3_BUCKET = aws_s3_bucket.pdf_bucket.id
-    }
-  }
-}
+-----------------------------------------------------------------------
 
 resource "aws_lambda_event_source_mapping" "sqs_trigger" {
   event_source_arn = aws_sqs_queue.pdf_generation_queue.arn
