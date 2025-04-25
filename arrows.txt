@@ -1,7 +1,18 @@
+Error: Invalid combination of arguments
+│ 
+│   with module.newversatl.aws_s3_bucket_acl.pdf_bucket,
+│   on ../modules/newversatl/main.tf line 159, in resource "aws_s3_bucket_acl" "pdf_bucket":
+│  159: resource "aws_s3_bucket_acl" "pdf_bucket" {
+│ 
+│ "access_control_policy": one of `access_control_policy,acl` must be specified
+╵
+╷
+│ Error: Invalid combination of arguments
+│ 
+│   with module.newversatl.aws_s3_bucket_acl.pdf_bucket,
+│   on ../modules/newversatl/main.tf line 159, in resource "aws_s3_bucket_acl" "pdf_bucket":
+│  159: resource "aws_s3_bucket_acl" "pdf_bucket" {
+│ 
+│ "acl": one of `access_control_policy,acl` must be specified
 
-One thousand burning arrows
-Fill the starlit sky
-
-The ship glides gently on the waves
-As day turns into night
 
