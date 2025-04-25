@@ -1,3 +1,19 @@
+ Error: creating ElastiCache Subnet Group (redis_subnet_group): operation error ElastiCache: CreateCacheSubnetGroup, https response error StatusCode: 400, RequestID: bcd308c4-983e-4443-97f1-53f2d244b92e, api error InvalidParameterValue: The parameter CacheSubnetGroupName is not a valid identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.
+│ 
+│   with module.newversatl.aws_elasticache_subnet_group.redis_sb_gr,
+│   on ../modules/newversatl/main.tf line 134, in resource "aws_elasticache_subnet_group" "redis_sb_gr":
+│  134: resource "aws_elasticache_subnet_group" "redis_sb_gr" {
+│ 
+╵
+╷
+│ Error: creating S3 Bucket (telegram-bot-pdf-bucket-testing-venti) ACL: operation error S3: PutBucketAcl, https response error StatusCode: 400, RequestID: G08N8H5TN1VENKJG, HostID: rwquUJyoKcvBpdbkkeYG7EAE3+2vyPjezKterZQM7hcWt2UzBhBJX1BA7g58wkXkIzaC/0Ce8mdZ2nIIEfxsArkhE++fHwozdyPvdfXAwmo=, api error AccessControlListNotSupported: The bucket does not allow ACLs
+│ 
+│   with module.newversatl.aws_s3_bucket_acl.example,
+│   on ../modules/newversatl/main.tf line 241, in resource "aws_s3_bucket_acl" "example":
+│  241: resource "aws_s3_bucket_acl" "example" {
+│ 
+
+
 Error: Invalid combination of arguments
 │ 
 │   with module.newversatl.aws_s3_bucket_acl.pdf_bucket,
