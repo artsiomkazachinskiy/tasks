@@ -1,3 +1,15 @@
+resource "aws_s3_bucket" "pdf_bucket" {
+  bucket = "my-telegram-pdf-bucket"  # Укажите уникальное имя
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "pdf_bucket_versioning" {
+  bucket = aws_s3_bucket.pdf_bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_iam_role" "lambda_exec_role" {
   name = "lambda-pdf-generator-role"
 
