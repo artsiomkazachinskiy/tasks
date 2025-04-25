@@ -1,3 +1,22 @@
+backend_1            | Traceback (most recent call last):
+backend_1            |   File "/usr/local/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+backend_1            |     return _run_code(code, main_globals, None,
+backend_1            |   File "/usr/local/lib/python3.10/runpy.py", line 86, in _run_code
+backend_1            |     exec(code, run_globals)
+backend_1            |   File "/api/main.py", line 39, in <module>
+backend_1            |     async def cmd_generate_pdf(message: types.Message, state: FSMContext):
+backend_1            |   File "/root/.cache/pypoetry/virtualenvs/devops-training-bot-cCrPfAjT-py3.10/lib/python3.10/site-packages/aiogram/dispatcher/event/telegram.py", line 138, in wrapper
+backend_1            |     self.register(callback, *filters, flags=flags, **kwargs)
+backend_1            |   File "/root/.cache/pypoetry/virtualenvs/devops-training-bot-cCrPfAjT-py3.10/lib/python3.10/site-packages/aiogram/dispatcher/event/telegram.py", line 68, in register
+backend_1            |     raise UnsupportedKeywordArgument(
+backend_1            | aiogram.exceptions.UnsupportedKeywordArgument: Passing any additional keyword arguments to the registrar method is not supported.
+backend_1            | This error may be caused when you are trying to register filters like in 2.x version of this framework, if it's true just look at correspoding documentation pages.
+backend_1            | Please remove the {'commands'} arguments from this call.
+backend_1            | 
+backend_1            | (background on this error at: https://docs.aiogram.dev/en/dev-3.x/migration_2_to_3.html#filtering-events)
+
+
+
 resource "aws_s3_bucket_policy" "example" {
   bucket = aws_s3_bucket.example.id
   policy = data.aws_iam_policy_document.example.json
