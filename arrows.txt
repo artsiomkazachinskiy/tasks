@@ -1,3 +1,11 @@
+aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 890742572904.dkr.ecr.eu-central-1.amazonaws.com
+
+docker tag devops-bot:latest 890742572904.dkr.ecr.eu-central-1.amazonaws.com/devops-bot:latest
+
+docker push 890742572904.dkr.ecr.eu-central-1.amazonaws.com/devops-bot:latest
+
+
+---------------
 from aiogram import Bot, Dispatcher, types, Router
 from aiogram.fsm.storage.redis import RedisStorage
 from aiogram.fsm.storage.memory import MemoryStorage
