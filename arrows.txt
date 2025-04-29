@@ -1,3 +1,12 @@
+resource "aws_lambda_event_source_mapping" "sqs_trigger" {
+  event_source_arn = aws_sqs_queue.your_queue.arn
+  function_name    = aws_lambda_function.your_lambda.arn
+  enabled          = true
+  batch_size       = 1  # Количество сообщений за один вызов (макс. 10)
+}
+
+------
+
 import boto3
 from fpdf import FPDF  # pip install fpdf2
 import json
