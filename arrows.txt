@@ -1,3 +1,87 @@
+from aiogram import Bot, Dispatcher, types, Router
+from aiogram.fsm.storage.redis import RedisStorage
+from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.fsm.context import FSMContext
+from aiogram.filters import Command
+from aiogram.fsm.state import State, StatesGroup
+from db import async_session
+from bot.middlewares.db_middleware import DatabaseSessionMiddleware
+from bot.middlewares.state_middleware import PydanticStateMiddleware
+from bot.schemas.user import UserStateModel
+from bot.handlers.start import user_creation_router
+from bot.config import config
+import asyncio
+import boto3
+import json
+
+# Создаем объекты бота и диспетчера
+bot = Bot(token=config.BOT_TOKEN)
+if config.REDIS_ENABLED and config.REDIS_URL:
+    dp = Dispatcher(storage=RedisStorage.from_url(config.REDIS_URL))
+    print("Redis connected")
+else:
+    dp = Dispatcher(storage=MemoryStorage())
+
+dp.update.middleware(DatabaseSessionMiddleware(async_session))
+dp.update.middleware(PydanticStateMiddleware(UserStateModel, state_key="user_state"))
+
+# Настройка AWS
+sqs = boto3.client("sqs", region_name="eu-central-1")
+s3 = boto3.client("s3", region_name="eu-central-1")
+QUEUE_URL = config.SQS_URL 
+S3_BUCKET = config.S3_NAME
+
+class PDFStates(StatesGroup):
+    waiting_for_text = State()
+
+pdf_router = Router()
+
+@pdf_router.message(Command(commands=["generate_pdf"]))
+async def cmd_generate_pdf(message: types.Message, state: FSMContext):
+    await message.reply("введите текст для генерации PDF:")
+    await state.set_state(PDFStates.waiting_for_text)
+
+@pdf_router.message(PDFStates.waiting_for_text)
+async def process_pdf_text(message: types.Message, state: FSMContext):
+    try:
+        sqs.send_message(
+            QueueUrl=QUEUE_URL,
+            MessageBody=json.dumps({
+                "user_id": message.from_user.id,
+                "text": message.text
+            })
+        )
+        await message.reply("Используйте /showpdf для получения файла.")
+    except Exception as e:
+        await message.reply(f"Ошибка: {str(e)}")
+    finally:
+        await state.clear()
+
+@pdf_router.message(Command(commands=["showpdf"]))
+async def cmd_show_pdf(message: types.Message):
+    try:
+        user_id = message.from_user.id
+        s3_key = f"pdfs/{user_id}.pdf"
+        
+        url = s3.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': S3_BUCKET, 'Key': s3_key},
+            ExpiresIn=3600
+        )
+        await message.reply(f"Ваш PDF: {url}")
+    except Exception as e:
+        await message.reply("PDF еще не готов")
+
+# Регистрируем роутеры
+dp.include_router(user_creation_router)
+dp.include_router(pdf_router)
+
+async def main():
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+--------------------------
 resource "aws_lambda_event_source_mapping" "sqs_trigger" {
   event_source_arn = aws_sqs_queue.your_queue.arn
   function_name    = aws_lambda_function.your_lambda.arn
