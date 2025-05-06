@@ -1,3 +1,12 @@
+Error: Invalid expression
+
+  on main.tf line 17, in resource "aws_ecs_task_definition" "ecs_task":
+  17:         value = key == "REDIS_URL" ? "redis://${var.redis_address}:${var.redis_port}" :
+  18:                 (key == "SQS_URL" ? "${var.sqs_url}" :
+
+Expected the start of an expression, but found an invalid expression token.
+
+
 image     = "${data.image_uri}.dkr.ecr.${data.image_region}.amazonaws.com/${data.image_folder}:${var.task_image_tag}"
 
 aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 890742572904.dkr.ecr.eu-central-1.amazonaws.com
