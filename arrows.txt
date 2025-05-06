@@ -1,3 +1,5 @@
+image     = "${data.image_uri}.dkr.ecr.${data.image_region}.amazonaws.com/${data.image_folder}:${var.task_image_tag}"
+
 aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 890742572904.dkr.ecr.eu-central-1.amazonaws.com
 
 docker tag devops-bot:latest 890742572904.dkr.ecr.eu-central-1.amazonaws.com/devops-bot:latest
