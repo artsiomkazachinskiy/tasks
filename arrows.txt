@@ -1,3 +1,52 @@
+resource "aws_ecs_task_definition" "ecs_task" {
+  family                   = var.task_def.family
+  requires_compatibilities = [for comp in var.task_def.compatibilities : comp]
+  container_definitions = jsonencode([
+    for name, data in var.container_vars : {
+      name      = data.name
+      image     = "${data.image_uri}.dkr.ecr.${data.image_region}.amazonaws.com/${data.image_folder}:${var.task_image_tag}"
+      essential = data.essential
+      memory    = data.memory
+      command   = [for com in data.command : com]
+      dependsOn = ( data.depends_on ? [{
+        containerName = data.depends_cont.containerName
+        condition = data.depends_cont.condition
+        }] : [])
+      environment = [ 
+        for key, value in data.environment : {
+          name  = key
+          value = key == "REDIS_URL"    ? format("redis://%s:%s", var.redis_address, var.redis_port) :
+        key == "SQS_URL"      ? var.sqs_url :
+        key == "S3_NAME"      ? var.s3_name :
+        key == "POSTGRES_URL" ? var.db_endpoint :
+        value
+        }
+      ]
+      logConfiguration = {
+        logDriver = data.logs.logDriver
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.ecs_logs.name
+          awslogs-region        = data.logs.awslogs_region
+          awslogs-stream-prefix = data.logs.awslogs_stream_prefix
+        }
+      }
+    }
+  ])
+}
+
+--
+
+rror: Invalid expression
+
+  on main.tf line 18, in resource "aws_ecs_task_definition" "ecs_task":
+  18:           value = key == "REDIS_URL"    ? format("redis://%s:%s", var.redis_address, var.redis_port) :
+  19:         key == "SQS_URL"      ? var.sqs_url :
+
+Expected the start of an expression, but found an invalid expression token.
+
+
+-----
+
 Error: Invalid expression
 
   on main.tf line 18, in resource "aws_ecs_task_definition" "ecs_task":
