@@ -1,3 +1,12 @@
+environment = [ for key, value in data.environment : {
+        name  = key
+        value = key == "REDIS_URL" ? "redis://${var.redis_address}:${var.redis_port}" :
+                key == "SQS_URL" ? "${var.sqs_url}" :
+                key == "S3_NAME" ? "${var.s3_name}" : 
+                key == "POSTGRES_URL" ? "${var.db_endpoint}" : value
+        }]
+
+
 Error: Invalid expression
 
   on main.tf line 17, in resource "aws_ecs_task_definition" "ecs_task":
