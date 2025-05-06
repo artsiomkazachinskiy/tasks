@@ -1,3 +1,14 @@
+Error: Invalid expression
+
+  on main.tf line 18, in resource "aws_ecs_task_definition" "ecs_task":
+  18:           value = key == "REDIS_URL"    ? format("redis://%s:%s", var.redis_address, var.redis_port) :
+  19:         key == "SQS_URL"      ? var.sqs_url :
+
+Expected the start of an expression, but found an invalid expression token.
+
+
+
+
 value = key == "REDIS_URL"    ? format("redis://%s:%s", var.redis_address, var.redis_port) :
         key == "SQS_URL"      ? var.sqs_url :
         key == "S3_NAME"      ? var.s3_name :
