@@ -1,3 +1,5 @@
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 0-5: ordinal not in range(256)
+------------
 sql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  Peer authentication failed for user "postgres"
 
 
