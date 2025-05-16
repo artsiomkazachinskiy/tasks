@@ -1,3 +1,16 @@
+Will watch for changes in these directories: ['/home/artsiom/atlantis/atlantis-fastapi']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [30242] using StatReload
+INFO:     Started server process [30251]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+INFO:     127.0.0.1:38624 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:40404 - "GET /clients HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:40404 - "GET /clients/ HTTP/1.1" 401 Unauthorized
+
+-----------------
 from aiogram import Bot, Dispatcher, types
 from aiogram.fsm.storage.redis import RedisStorage
 from aiogram.fsm.storage.memory import MemoryStorage
