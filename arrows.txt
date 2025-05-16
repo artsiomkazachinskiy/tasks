@@ -1,3 +1,104 @@
+poetry run alembic upgrade head
+Traceback (most recent call last):
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 146, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 3298, in raw_connection
+    return self.pool.connect()
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 1263, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 712, in checkout
+    rec = pool._do_get()
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/impl.py", line 308, in _do_get
+    return self._create_connection()
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 390, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 674, in __init__
+    self.__connect()
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/create.py", line 646, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 622, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/bin/alembic", line 8, in <module>
+    sys.exit(main())
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/alembic/config.py", line 636, in main
+    CommandLine(prog=prog).main(argv=argv)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/alembic/config.py", line 626, in main
+    self.run_cmd(cfg, options)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/alembic/config.py", line 603, in run_cmd
+    fn(
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/alembic/command.py", line 406, in upgrade
+    script.run_env()
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/alembic/script/base.py", line 586, in run_env
+    util.load_python_file(self.dir, "env.py")
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/alembic/util/pyfiles.py", line 95, in load_python_file
+    module = load_module_py(module_id, path)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/alembic/util/pyfiles.py", line 113, in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/home/artsiom/atlantis/atlantis-fastapi/alembic/env.py", line 89, in <module>
+    run_migrations_online()
+  File "/home/artsiom/atlantis/atlantis-fastapi/alembic/env.py", line 77, in run_migrations_online
+    with connectable.connect() as connection:
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 3274, in connect
+    return self._connection_cls(self)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 148, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2439, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 146, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 3298, in raw_connection
+    return self.pool.connect()
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 1263, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 712, in checkout
+    rec = pool._do_get()
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/impl.py", line 308, in _do_get
+    return self._create_connection()
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 390, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 674, in __init__
+    self.__connect()
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/create.py", line 646, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 622, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+  File "/home/artsiom/.cache/pypoetry/virtualenvs/atlantis-fastapi-yY5Yufz8-py3.10/lib/python3.10/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+
+
+-----------------------
 resource "aws_ecs_task_definition" "ecs_task" {
   family                   = var.task_def.family
   requires_compatibilities = [for comp in var.task_def.compatibilities : comp]
