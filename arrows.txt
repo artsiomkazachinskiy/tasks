@@ -1,3 +1,32 @@
+-----------------
+
+added 352 packages, and audited 353 packages in 27s
+
+85 packages are looking for funding
+  run `npm fund` for details
+
+5 vulnerabilities (3 moderate, 2 high)
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+artsiom@Ubuntu:~/atlantis/atlantis-typescript$ npm run dev -- --host
+
+> atlantis-typescript@0.0.0 dev
+> vite "--host"
+
+file:///home/artsiom/atlantis/atlantis-typescript/node_modules/vite/bin/vite.js:8
+    await import('source-map-support').then((r) => r.default.install())
+    ^^^^^
+
+SyntaxError: Unexpected reserved word
+    at Loader.moduleStrategy (internal/modules/esm/translators.js:133:18)
+    at async link (internal/modules/esm/module_job.js:42:21)
+artsiom@Ubuntu:~/atlantis/atlantis-typescript$ 
+
+
+-------
 INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
 INFO  [alembic.runtime.migration] Will assume transactional DDL.
 INFO  [alembic.runtime.migration] Running upgrade  -> 3d3752b00c03, initial migration
