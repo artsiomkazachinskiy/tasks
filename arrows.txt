@@ -1,4 +1,24 @@
-Errors were encountered while processing:
+# 1. Stop Nginx
+echo "Stopping Nginx..."
+sudo systemctl stop nginx
+
+# 2. Remove Nginx and dependencies
+echo "Removing Nginx package..."
+sudo apt remove --purge -y 'nginx*'
+sudo apt autoremove -y
+
+# 3. Cleanup residual files
+echo "Cleaning up..."
+sudo rm -rf /etc/nginx /var/www/html /var/log/nginx
+
+# 4. Verify removal
+if ! dpkg -l | grep -q nginx; then
+    echo "Nginx removed successfully."
+else
+    echo "Error: Nginx or its components still exist. Manual check required."
+fi
+
+-----Errors were encountered while processing:
  /var/cache/apt/archives/nodejs_18.20.8-1nodesource1_amd64.deb
 E: Sub-process /usr/bin/dpkg returned an error code (1)
 
