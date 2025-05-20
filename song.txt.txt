@@ -1,3 +1,275 @@
+1. Создание пользователей и назначение паролей
+check.sh
+bash
+#!/bin/bash
+
+# Проверяем, существуют ли пользователи
+for user in dev1 dev2 ops1; do
+    if ! id "$user" &>/dev/null; then
+        echo "Ошибка: Пользователь $user не существует."
+        exit 1
+    fi
+done
+
+# Проверяем, могут ли пользователи войти (пароль установлен)
+for user in dev1 dev2 ops1; do
+    if ! sudo passwd --status "$user" | grep -q "P$"; then
+        echo "Ошибка: У пользователя $user нет пароля."
+        exit 1
+    fi
+done
+
+echo "Проверка завершена: Все пользователи созданы и имеют пароли."
+exit 0
+cleanup.sh
+bash
+#!/bin/bash
+
+# Удаляем пользователей и их домашние директории
+for user in dev1 dev2 ops1; do
+    if id "$user" &>/dev/null; then
+        sudo userdel -r "$user" 2>/dev/null
+    fi
+done
+
+echo "Очистка завершена: Пользователи удалены."
+2. Работа с группами и добавление пользователей
+check.sh
+bash
+#!/bin/bash
+
+# Проверяем существование групп
+for group in developers operations; do
+    if ! getent group "$group" &>/dev/null; then
+        echo "Ошибка: Группа $group не существует."
+        exit 1
+    fi
+done
+
+# Проверяем, что пользователи в нужных группах
+declare -A user_groups=(
+    ["dev1"]="developers"
+    ["dev2"]="developers"
+    ["ops1"]="operations"
+)
+
+for user in "${!user_groups[@]}"; do
+    if ! id -nG "$user" | grep -qw "${user_groups[$user]}"; then
+        echo "Ошибка: Пользователь $user не в группе ${user_groups[$user]}."
+        exit 1
+    fi
+done
+
+echo "Проверка завершена: Группы и пользователи настроены правильно."
+exit 0
+cleanup.sh
+bash
+#!/bin/bash
+
+# Удаляем группы (если они пусты)
+for group in developers operations; do
+    if getent group "$group" &>/dev/null; then
+        sudo groupdel "$group" 2>/dev/null
+    fi
+done
+
+echo "Очистка завершена: Группы удалены."
+3. Настройка прав доступа к файлам
+check.sh
+bash
+#!/bin/bash
+
+dir="/shared/dev_project"
+
+# Проверяем, существует ли директория
+if [ ! -d "$dir" ]; then
+    echo "Ошибка: Директория $dir не существует."
+    exit 1
+fi
+
+# Проверяем права (должны быть 750)
+if [ "$(stat -c %a "$dir")" != "750" ]; then
+    echo "Ошибка: Неправильные права на директорию $dir."
+    exit 1
+fi
+
+# Проверяем группу-владельца
+if [ "$(stat -c %G "$dir")" != "developers" ]; then
+    echo "Ошибка: Директория $dir должна принадлежать группе developers."
+    exit 1
+fi
+
+echo "Проверка завершена: Права на директорию настроены правильно."
+exit 0
+cleanup.sh
+bash
+#!/bin/bash
+
+# Удаляем тестовую директорию
+sudo rm -rf /shared/dev_project
+
+echo "Очистка завершена: Директория /shared/dev_project удалена."
+4. Удаление пользователей и групп
+check.sh
+bash
+#!/bin/bash
+
+# Проверяем, что пользователь dev2 удалён
+if id "dev2" &>/dev/null; then
+    echo "Ошибка: Пользователь dev2 всё ещё существует."
+    exit 1
+fi
+
+# Проверяем, что группа operations удалена (если была пуста)
+if getent group "operations" &>/dev/null; then
+    echo "Ошибка: Группа operations всё ещё существует."
+    exit 1
+fi
+
+echo "Проверка завершена: Пользователь dev2 и группа operations удалены."
+exit 0
+cleanup.sh
+bash
+#!/bin/bash
+
+# Если пользователь dev2 остался — удаляем
+if id "dev2" &>/dev/null; then
+    sudo userdel -r dev2 2>/dev/null
+fi
+
+# Если группа operations осталась — удаляем
+if getent group "operations" &>/dev/null; then
+    sudo groupdel operations 2>/dev/null
+fi
+
+echo "Очистка завершена: Удалены остатки пользователя и группы."
+5. Sudo и права администратора
+check.sh
+bash
+#!/bin/bash
+
+# Проверяем, может ли ops1 выполнять любые команды через sudo
+if ! sudo -lU ops1 | grep -q "(ALL:ALL) ALL"; then
+    echo "Ошибка: Пользователь ops1 не имеет полного доступа sudo."
+    exit 1
+fi
+
+# Проверяем, может ли группа developers перезапускать nginx
+if ! sudo -lU dev1 | grep -q "(root) /usr/bin/systemctl restart nginx"; then
+    echo "Ошибка: Группа developers не может перезапускать nginx."
+    exit 1
+fi
+
+echo "Проверка завершена: Права sudo настроены правильно."
+exit 0
+cleanup.sh
+bash
+#!/bin/bash
+
+# Удаляем права sudo для ops1 и developers
+sudo sed -i '/ops1 ALL=(ALL:ALL) ALL/d' /etc/sudoers
+sudo sed -i '/%developers ALL=(root) /usr\/bin\/systemctl restart nginx/d' /etc/sudoers
+
+echo "Очистка завершена: Права sudo удалены."
+6. Автоматизация скриптом
+check.sh
+bash
+#!/bin/bash
+
+# Проверяем, что пользователь ci_user создан и не может войти
+if ! id "ci_user" &>/dev/null; then
+    echo "Ошибка: Пользователь ci_user не существует."
+    exit 1
+fi
+
+if ! grep -q "ci_user:/sbin/nologin" /etc/passwd; then
+    echo "Ошибка: ci_user должен иметь оболочку /sbin/nologin."
+    exit 1
+fi
+
+# Проверяем, что группа ci_agents существует
+if ! getent group "ci_agents" &>/dev/null; then
+    echo "Ошибка: Группа ci_agents не существует."
+    exit 1
+fi
+
+# Проверяем директорию /var/ci и её права
+if [ ! -d "/var/ci" ]; then
+    echo "Ошибка: Директория /var/ci не существует."
+    exit 1
+fi
+
+if [ "$(stat -c %a "/var/ci")" != "750" ]; then
+    echo "Ошибка: Неправильные права на /var/ci."
+    exit 1
+fi
+
+echo "Проверка завершена: Скрипт отработал корректно."
+exit 0
+cleanup.sh
+bash
+#!/bin/bash
+
+# Удаляем пользователя и группу
+sudo userdel -r ci_user 2>/dev/null
+sudo groupdel ci_agents 2>/dev/null
+
+# Удаляем директорию
+sudo rm -rf /var/ci
+
+echo "Очистка завершена: Пользователь, группа и директория удалены."
+7. Практика с ACL (расширенные права)
+check.sh
+bash
+#!/bin/bash
+
+file="/home/dev1/secret.txt"
+
+# Проверяем, что файл существует
+if [ ! -f "$file" ]; then
+    echo "Ошибка: Файл $file не существует."
+    exit 1
+fi
+
+# Проверяем ACL для ops1
+if ! getfacl "$file" | grep -q "user:ops1:r--"; then
+    echo "Ошибка: У ops1 нет прав на чтение через ACL."
+    exit 1
+fi
+
+echo "Проверка завершена: ACL настроен правильно."
+exit 0
+cleanup.sh
+bash
+#!/bin/bash
+
+# Удаляем ACL для файла
+sudo setfacl -b /home/dev1/secret.txt 2>/dev/null
+
+echo "Очистка завершена: ACL удалён."
+8. Аудит пользователей (доп. сложность)
+check.sh
+bash
+#!/bin/bash
+
+# Проверяем, что аудит включён для ops1
+if ! sudo auditctl -l | grep -q "auid=ops1"; then
+    echo "Ошибка: Аудит для ops1 не настроен."
+    exit 1
+fi
+
+echo "Проверка завершена: Аудит работает."
+exit 0
+cleanup.sh
+bash
+#!/bin/bash
+
+# Удаляем правила аудита для ops1
+sudo auditctl -D  # Удаляем все правила (можно точнее, но для теста сойдёт)
+
+echo "Очистка завершена: Правила аудита удалены."
+Общие рекомендации:
+
 Задания
 1. Создание пользователей и назначение паролей
 Создать пользователей: dev1, dev2, ops1.
