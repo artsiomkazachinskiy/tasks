@@ -1,3 +1,13 @@
+# 3. Remove Nginx package
+echo "Removing Nginx package..."
+apt remove --purge -y nginx
+if [ $? -eq 0 ]; then
+    echo "Nginx removed successfully."
+else
+    echo "Error removing Nginx package. Manual intervention may be required."
+fi
+
+-------------------
 Will watch for changes in these directories: ['/home/artsiom/atlantis/atlantis-fastapi']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 INFO:     Started reloader process [30242] using StatReload
