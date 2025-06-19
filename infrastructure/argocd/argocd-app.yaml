@@ -4,7 +4,7 @@ metadata:
   name: prometheus-app
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: artsiomkazachinskiy/mytestapp
+    argocd-image-updater.argoproj.io/image-list: artsiomkaz/mytestapp
     argocd-image-updater.argoproj.io/write-back-method: git
 spec:
   project: default
