@@ -1,0 +1,11 @@
+Dockerfile
+.dockerignore
+.git
+.gitignore
+README.md
+*.md
+go.mod
+go.sum
+# Any local build artifacts if not covered by .gitignore
+main
+prometheus-app
