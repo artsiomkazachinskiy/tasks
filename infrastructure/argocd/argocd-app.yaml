@@ -6,6 +6,7 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: artsiomkaz/mytestapp
     argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/artsiomkaz-mytestapp.allow-tags: regexp:.*
 spec:
   project: default
   source:
