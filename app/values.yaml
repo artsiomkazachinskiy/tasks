@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: artsiomkaz/mytestapp
-  tag: v.1.0.0
+  tag: v1.0.0
   pullPolicy: Always
 
 service:
