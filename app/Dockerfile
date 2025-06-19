@@ -11,12 +11,13 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the local package source code
-COPY . .
+# Copy only the src directory which contains main.go and index.html
+COPY src/ ./src/
 
 # Build the Go app
 # -o /app/main specifies the output file path and name
-# . specifies that the main package is in the current directory
-RUN go build -o /app/main .
+# ./src/main.go specifies the entrypoint
+RUN go build -o /app/main ./src/main.go
 
 # Use a smaller, non-developer image for the final stage
 FROM alpine:latest
@@ -26,7 +27,8 @@ WORKDIR /app
 
 # Copy the built executable from the builder stage
 COPY --from=builder /app/main .
-COPY index.html .
+# Copy the index.html from the builder stage's src directory
+COPY --from=builder /app/src/index.html .
 
 # Expose port 8080 to the outside world
 EXPOSE 8080
