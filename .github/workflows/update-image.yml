@@ -1,9 +1,10 @@
 name: Update Docker Image
 
 on:
-  repository_dispatch:
-    types: [docker-hub-update]
-  workflow_dispatch:
+  push:
+    branches: [ "master" ]
+    paths:
+      - 'app/.argocd-source-prometheus-app.yaml'  # Триггер только при изменении в папке src
 
 jobs:
   update-image:
