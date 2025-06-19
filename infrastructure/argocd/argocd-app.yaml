@@ -8,6 +8,7 @@ metadata:
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/artsiomkaz-mytestapp.allow-tags: regexp:.*
     argocd-image-updater.argoproj.io/mytestapp.update-strategy: latest
+    argocd-image-updater.argoproj.io/mytestapp.version-constraint: "none"
 spec:
   project: default
   source:
