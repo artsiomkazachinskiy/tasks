@@ -2,7 +2,7 @@ name: Docker Build and Versioning
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
     paths:
       - 'app/docker/**'
 
