@@ -5,19 +5,19 @@ FROM golang:1.22-alpine AS builder
 WORKDIR /app
 
 # Copy go mod and sum files
-COPY ../go.mod ../go.sum ./
+COPY go.mod go.sum ./
 
 # Download dependencies
 RUN go mod download
 
 # Copy the local package source code
 # Copy only the src directory which contains main.go and index.html
-COPY ../src/ ./src/
+COPY src/ ./src/
 
 # Build the Go app
 # -o /app/main specifies the output file path and name
 # ./src/main.go specifies the entrypoint
-RUN go build -o /app/main ../src/main.go
+RUN go build -o /app/main ./src/main.go
 
 # Use a smaller, non-developer image for the final stage
 FROM alpine:latest
