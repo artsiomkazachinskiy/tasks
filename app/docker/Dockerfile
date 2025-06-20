@@ -1,7 +1,7 @@
 # Use an official Go runtime as a parent image
 FROM golang:1.22-alpine AS builder
 
-# Set the working directory in the container
+# Set the working directory in the container t 
 WORKDIR /app
 
 # Copy go mod and sum files
