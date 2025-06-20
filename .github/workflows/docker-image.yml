@@ -2,7 +2,7 @@ ame: Docker Build and Push
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
     paths:
       - 'app/**' 
 
