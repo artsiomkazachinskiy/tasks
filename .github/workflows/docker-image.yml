@@ -44,7 +44,7 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/mytestapp:${{ steps.bump-version.outputs.new_tag }}
-            ${{ secrets.DOCKER_HUB_USERNAME }}/mytestapp:latest
+           
 
       - name: Create Git tag
         run: |
