@@ -32,7 +32,7 @@ jobs:
       - name: Build and push with version tag
         uses: docker/build-push-action@v5
         with:
-          context: ./app
+          context: ./app/docker
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/mytestapp:${{ steps.bump-version.outputs.new_tag }}
